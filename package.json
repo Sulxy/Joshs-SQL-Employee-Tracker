@@ -1,12 +1,12 @@
 {
-  "name": "Employee-Tracker",
+"name": "@employee-tracker",
   "version": "1.0.0",
   "description": "Database Management System",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
-  "author": "Your Name",
+  "author": "Sulxy",
   "license": "MIT",
   "dependencies": {
     "inquirer": "^7.3.3",
