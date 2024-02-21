@@ -2,9 +2,9 @@ DROP DATABASE IF EXISTS employee_Tracker_db;
 
 CREATE DATABASE employee_Tracker_db;
 
-USE employeeTracker_db;
+USE employee_Tracker_db;
 
-CREATE TABLE departments (
+CREATE TABLE department (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 department_name VARCHAR(255) NOT NULL
 );
@@ -15,7 +15,7 @@ title VARCHAR(255),
 salary DECIMAL(10,2),
 department_id INT,
 FOREIGN KEY (department_id)
-REFERENCES departments(id)
+REFERENCES department(id)
 ON DELETE SET NULL
 );
 
