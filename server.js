@@ -7,17 +7,18 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     port: '3001', 
-    // vv INSERT PASSWORD HERE vv
     password: '',
     database: 'employee_Tracker_db'
 });
 
-// Starts the application
+// Connect to the database
 connection.connect((err) => {
     if (err) throw err;
-    console.log('Connected to the employee tracker database.');
+    console.log("Connected to the Employee Tracker database!");
+    // start the application
     start();
 });
+
 
 // cfont stuff
 cfonts.say('Employee Tracker', {
