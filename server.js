@@ -19,7 +19,6 @@ connection.connect((err) => {
     start();
 });
 
-
 // cfont stuff
 cfonts.say('Employee Tracker', {
     font: 'block',              
@@ -273,6 +272,9 @@ function addRole() {
                         start();
                     }
                 );
+            })
+            .catch((error) => {
+                console.error(error);
             });
     });
 }
