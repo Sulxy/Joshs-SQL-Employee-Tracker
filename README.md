@@ -25,7 +25,7 @@ This project is licensed under the MIT license.
 For more information about the license, click [here](https://opensource.org/licenses/MIT).
 
 ## Contributing
-Please see the Github Documents regarding this topic. 
+Please see the [Github Documents](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) regarding this topic. 
 
 ## Tests
 Ensure you have mySQL installed. User will need to navigate to the "db" folder that contains all of the .sql files. Run mysql using the "mysql -u root -p" command. Input your password. Once the server is running: type "source schema.sql", and "source seeds.sql". Once the schema and seeds are been run, you can now run the test.sql. Do this by typing "source test.sql". 
