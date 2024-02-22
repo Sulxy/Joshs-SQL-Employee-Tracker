@@ -10,6 +10,7 @@ This application allows the user to manage and maintain a database of informatio
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
+- [Sources](#sources)
 
 ## Installation
 Clone the repository, navigate to the approriate directory in your CLI (the one containing server.js), and install the dependencies by typing "npm i" into your command line. 
@@ -36,3 +37,7 @@ Ensure you have mySQL installed. User will need to navigate to the "db" folder t
 If you have any questions, feel free to reach out to me:
 - Email: Joshuahale829@gmail.com
 - GitHub: [Sulxy](https://github.com/Sulxy)
+
+## Sources
+I spoke with Rudie from AskBCS to help me with an AggregateError issue I was having. They really helped set me straight on that issue! 
+ThomasCalle's youtube channel, and Angela and Gabe from class, whom helped me with some other issues with my code, but authored no code. 
