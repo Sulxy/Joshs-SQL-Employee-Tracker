@@ -5,7 +5,6 @@ const cfonts = require('cfonts');
 // mySQL connection
 const connection = mysql.createConnection({
     host: 'localhost',
-    // port: 3001, 
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DB

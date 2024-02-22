@@ -1,9 +1,18 @@
-{"dependencies":
-  {
-  "cfonts":"^3.1.1",
-  "console.table":"^0.10.0",
-  "dotenv":"^16.4.5",
-  "inquirer":"^8.2.4",
-  "mysql2":"^3.1.2"
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cfonts":"^3.1.1",
+    "console.table":"^0.10.0",
+    "dotenv":"^16.4.5",
+    "inquirer":"^8.2.4",
+    "mysql2":"^3.1.2"
   }
 }
