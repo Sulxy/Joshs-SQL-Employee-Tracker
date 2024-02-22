@@ -6,9 +6,9 @@ const cfonts = require('cfonts');
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3001, 
-    user: 'root',
-    password: '',
-    database: 'employee_Tracker_db'
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DB
 });
 
 // Connect to the database
@@ -34,7 +34,7 @@ cfonts.say('Employee Tracker', {
     env: 'node'
 });
 
-// Start function
+// Start function -- prompts user to select an option
 function start() {
     inquirer
         .prompt({
