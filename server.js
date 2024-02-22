@@ -3,11 +3,12 @@ const mysql = require('mysql2');
 const cfonts = require('cfonts');  
 
 // mySQL connection
+// USER MAY NEED TO CHANGE SOME OF THE CONNECTION PARAMETERS TO MATCH THEIR LOCAL SETTINGS
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Howdy2024!',
-    database: 'employee_Tracker_db'
+    host: 'localhost', // Your host, usually localhost
+    user: '', // Your mySQL username
+    password: '', // Your mySQL password
+    database: 'employee_Tracker_db' // Your database name if you changed it
 });
 
 // Connect to the database
@@ -55,7 +56,7 @@ function start() {
                 "View the total utilized budget of a department",
                 "Exit",
             ],
-            pageSize: 13, // Set the pageSize to limit the number of visible choices
+            pageSize: 13, // Set the pageSize to limit the number of visible choices and stop it from scrolling indefinitely
         })
         .then((answer) => {
             switch (answer.action) {
@@ -103,6 +104,7 @@ function start() {
         });
 }
 
+// function to view all departments
 function viewAllDepartments() {
     const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
@@ -141,6 +143,7 @@ function viewAllEmployees() {
     });
 }
 
+// function to view employees by manager
 function viewEmployeesByManager() {
     const query = `
       SELECT 
@@ -160,7 +163,7 @@ function viewEmployeesByManager() {
         e.last_name, 
         e.first_name
     `;
-
+     // query the database
     connection.query(query, (err, res) => {
         if (err) throw err;
 
@@ -192,10 +195,11 @@ function viewEmployeesByManager() {
     });
 }
 
+// function to view employees by department
 function viewEmployeesByDepartment() {
     const query =
         "SELECT department.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.department_name ASC";
-
+    // query the database
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.log("\nEmployees by department:");
@@ -205,6 +209,7 @@ function viewEmployeesByDepartment() {
     });
 }
 
+// function to add a department
 function addDepartment() {
     inquirer
         .prompt({
@@ -225,6 +230,7 @@ function addDepartment() {
         });
 }
 
+// function to add a role
 function addRole() {
     const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
@@ -278,6 +284,7 @@ function addRole() {
     });
 }
 
+// function to add an employee
 function addEmployee() {
     // Retrieve list of roles from the database to use as employee roles
     connection.query("SELECT id, title FROM roles", (error, results) => {
@@ -363,10 +370,12 @@ function addEmployee() {
     });
 }
 
+// function to add a manager
 function addManager() {
     const queryDepartments = "SELECT * FROM department";
     const queryEmployees = "SELECT * FROM employee";
 
+    // get the list of departments and employees
     connection.query(queryDepartments, (err, resDepartments) => {
         if (err) throw err;
         connection.query(queryEmployees, (err, resEmployees) => {
@@ -434,6 +443,7 @@ function addManager() {
     });
 }
 
+// function to update an employee role
 function updateEmployeeRole() {
     const queryEmployees =
         "SELECT employee.id, employee.first_name, employee.last_name, roles.title FROM employee LEFT JOIN roles ON employee.role_id = roles.id";
@@ -488,6 +498,7 @@ function updateEmployeeRole() {
     });
 }
 
+// function to delete departments, roles, or employees
 function deleteDepartmentsRolesEmployees() {
     inquirer
         .prompt({
