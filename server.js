@@ -6,8 +6,8 @@ const cfonts = require('cfonts');
 // USER MAY NEED TO CHANGE SOME OF THE CONNECTION PARAMETERS TO MATCH THEIR LOCAL SETTINGS
 const connection = mysql.createConnection({
     host: 'localhost', // Your host, usually localhost
-    user: '', // Your mySQL username
-    password: '', // Your mySQL password
+    user: 'root', // Your mySQL username
+    password: 'Howdy2024!', // Your mySQL password
     database: 'employee_Tracker_db' // Your database name if you changed it
 });
 

@@ -1,3 +1,4 @@
+--  Purpose: This file is used to insert data into the tables
 INSERT INTO department (department_name)
 VALUES
 ('Sales'),

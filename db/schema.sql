@@ -1,3 +1,4 @@
+-- Purpose: This file is used to create the database and tables for the employee tracker application.
 DROP DATABASE IF EXISTS employee_Tracker_db;
 
 CREATE DATABASE employee_Tracker_db;
