@@ -15,7 +15,6 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log("Connected to the Employee Tracker database!");
-    // start the application
     start();
 });
 
@@ -105,7 +104,7 @@ function start() {
 }
 
 function viewAllDepartments() {
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -116,7 +115,7 @@ function viewAllDepartments() {
 
 // function to view all roles
 function viewAllRoles() {
-    const query = "SELECT roles.title, roles.id, departments.department_name, roles.salary from roles join departments on roles.department_id = departments.id";
+    const query = "SELECT roles.title, roles.id, department.department_name, roles.salary from roles join department on roles.department_id = department.id";
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -131,7 +130,7 @@ function viewAllEmployees() {
     SELECT e.id, e.first_name, e.last_name, r.title, d.department_name, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager_name
     FROM employee e
     LEFT JOIN roles r ON e.role_id = r.id
-    LEFT JOIN departments d ON r.department_id = d.id
+    LEFT JOIN department d ON r.department_id = d.id
     LEFT JOIN employee m ON e.manager_id = m.id;
     `;
     connection.query(query, (err, res) => {
@@ -154,7 +153,7 @@ function viewEmployeesByManager() {
       FROM 
         employee e
         INNER JOIN roles r ON e.role_id = r.id
-        INNER JOIN departments d ON r.department_id = d.id
+        INNER JOIN department d ON r.department_id = d.id
         LEFT JOIN employee m ON e.manager_id = m.id
       ORDER BY 
         manager_name, 
@@ -195,7 +194,7 @@ function viewEmployeesByManager() {
 
 function viewEmployeesByDepartment() {
     const query =
-        "SELECT departments.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id ORDER BY departments.department_name ASC";
+        "SELECT department.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.department_name ASC";
 
     connection.query(query, (err, res) => {
         if (err) throw err;
@@ -215,7 +214,7 @@ function addDepartment() {
         })
         .then((answer) => {
             console.log(answer.name);
-            const query = `INSERT INTO departments (department_name) VALUES ("${answer.name}")`;
+            const query = `INSERT INTO department (department_name) VALUES ("${answer.name}")`;
             connection.query(query, (err, res) => {
                 if (err) throw err;
                 console.log(`Added department ${answer.name} to the database!`);
@@ -227,7 +226,7 @@ function addDepartment() {
 }
 
 function addRole() {
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
         if (err) throw err;
         inquirer
@@ -365,7 +364,7 @@ function addEmployee() {
 }
 
 function addManager() {
-    const queryDepartments = "SELECT * FROM departments";
+    const queryDepartments = "SELECT * FROM department";
     const queryEmployees = "SELECT * FROM employee";
 
     connection.query(queryDepartments, (err, resDepartments) => {
@@ -499,14 +498,14 @@ function deleteDepartmentsRolesEmployees() {
         })
         .then((answer) => {
             switch (answer.data) {
-                case "Employee":
-                    deleteEmployee();
+                case "Department":
+                    deleteDepartment();
                     break;
                 case "Role":
                     deleteRole();
                     break;
-                case "Department":
-                    deleteDepartment();
+                case "Employee":
+                    deleteEmployee();
                     break;
                 default:
                     console.log(`Invalid data: ${answer.data}`);
@@ -519,7 +518,7 @@ function deleteDepartmentsRolesEmployees() {
 // Fuction to DELETE Department
 function deleteDepartment() {
     // get the list of departments
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
         if (err) throw err;
         const departmentChoices = res.map((department) => ({
@@ -543,7 +542,7 @@ function deleteDepartment() {
                     // go back to the previous menu
                     deleteDepartmentsRolesEmployees();
                 } else {
-                    const query = "DELETE FROM departments WHERE id = ?";
+                    const query = "DELETE FROM department WHERE id = ?";
                     connection.query(
                         query,
                         [answer.departmentId],
@@ -640,7 +639,7 @@ function deleteEmployee() {
 
 // Function to view Total Utilized Budget of Department
 function viewTotalUtilizedBudgetOfDepartment() {
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
         if (err) throw err;
         const departmentChoices = res.map((department) => ({
@@ -661,16 +660,16 @@ function viewTotalUtilizedBudgetOfDepartment() {
                 // calculate the total salary for the selected department
                 const query =
                     `SELECT 
-                    departments.department_name AS department,
+                    department.department_name AS department,
                     SUM(roles.salary) AS total_salary
                   FROM 
-                    departments
-                    INNER JOIN roles ON departments.id = roles.department_id
+                    department
+                    INNER JOIN roles ON department.id = roles.department_id
                     INNER JOIN employee ON roles.id = employee.role_id
                   WHERE 
-                    departments.id = ?
+                    department.id = ?
                   GROUP BY 
-                    departments.id;`;
+                    department.id;`;
                 connection.query(query, [answer.departmentId], (err, res) => {
                     if (err) throw err;
                     const totalSalary = res[0].total_salary;
