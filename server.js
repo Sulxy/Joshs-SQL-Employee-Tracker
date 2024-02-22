@@ -5,9 +5,9 @@ const cfonts = require('cfonts');
 // mySQL connection
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DB
+    user: 'root',
+    password: 'Howdy2024!',
+    database: 'employee_Tracker_db'
 });
 
 // Connect to the database
@@ -55,6 +55,7 @@ function start() {
                 "View the total utilized budget of a department",
                 "Exit",
             ],
+            pageSize: 13, // Set the pageSize to limit the number of visible choices
         })
         .then((answer) => {
             switch (answer.action) {
